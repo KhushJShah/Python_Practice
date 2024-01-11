@@ -336,3 +336,155 @@ if __name__ == '__main__':
     attrs = ["isalnum", "isalpha", "isdigit", "islower", "isupper"]
     for attr in attrs:
         print(any(getattr(i, attr)() for i in s))
+
+#%%
+"""
+Q. In Python, a string of text can be aligned left, right and center.
+
+.ljust(width)
+
+This method returns a left aligned string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.ljust(width,'-')
+HackerRank----------  
+.center(width)
+
+This method returns a centered string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.center(width,'-')
+-----HackerRank-----
+.rjust(width)
+
+This method returns a right aligned string of length width.
+
+>>> width = 20
+>>> print 'HackerRank'.rjust(width,'-')
+----------HackerRank
+Task
+
+You are given a partial code that is used for generating the HackerRank Logo of variable thickness.
+Your task is to replace the blank (______) with rjust, ljust or center.
+
+Input Format
+
+A single line containing the thickness value for the logo.
+
+Constraints
+
+The thickness must be an odd number.
+
+Output Format
+
+Output the desired logo.
+
+Sample Input
+
+5
+Sample Output
+
+    H    
+   HHH   
+  HHHHH  
+ HHHHHHH 
+HHHHHHHHH
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHHHHHHHHHHHHHHHHHHHHHH   
+  HHHHHHHHHHHHHHHHHHHHHHHHH   
+  HHHHHHHHHHHHHHHHHHHHHHHHH   
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+  HHHHH               HHHHH             
+                    HHHHHHHHH 
+                     HHHHHHH  
+                      HHHHH   
+                       HHH    
+                        H 
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+t = int(input())
+
+if t % 2 != 0:
+    logo_char = 'H'
+    space = ' '
+    start_space = int((t - 1) / 2)
+    char_space = t * 3
+    char_stomach = t * 5
+    
+for i in range(t):
+    first_alignment = (logo_char * (2 * i + 1)).center((2 * t), space)
+    print(first_alignment)
+
+for _ in range(t+1):
+    second_alignment = (logo_char * t).ljust(t, space)
+    print(start_space * space + second_alignment + char_space * space + second_alignment)
+    
+for _ in range(int((t+1)/2)):
+    third_alignment = (logo_char * char_stomach).center(t, space)
+    print(start_space * space + third_alignment + start_space * space)
+    
+for _ in range(t+1):
+    fourth_alignment = (logo_char * t).ljust(t, space)
+    print(start_space * space + fourth_alignment + char_space * space + fourth_alignment)
+
+for i in range(t * 2 - 1, 0, -2):
+    fifth_alignment = (logo_char * i).center((2 * t) + 1, space)
+    print((((4 * t) - 1) * space) + fifth_alignment)
+
+#%%
+"""
+You are given a string  and width .
+Your task is to wrap the string into a paragraph of width .
+
+Function Description
+
+Complete the wrap function in the editor below.
+
+wrap has the following parameters:
+
+string string: a long string
+int max_width: the width to wrap to
+Returns
+
+string: a single string with newline characters ('\n') where the breaks should be
+Input Format
+
+The first line contains a string, .
+The second line contains the width, .
+
+Constraints
+
+Sample Input 0
+
+ABCDEFGHIJKLIMNOQRSTUVWXYZ
+4
+Sample Output 0
+
+ABCD
+EFGH
+IJKL
+IMNO
+QRST
+UVWX
+YZ
+"""
+import textwrap
+
+def wrap(string, max_width):
+    text_wrap = textwrap.fill(string, max_width)
+    return text_wrap
+
+if __name__ == '__main__':
+    string, max_width = input(), int(input())
+    result = wrap(string, max_width)
+    print(result)
+# %%
